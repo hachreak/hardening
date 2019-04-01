@@ -1,6 +1,6 @@
-#### Basic configuration
+# Basic configuration
 
-## First Login
+#### First Login
 
 install git to clone this repository:
 
@@ -10,4 +10,9 @@ apt-get install -y git
 mkdir ~/src
 cd ~/src
 git clone https://github.com/hachreak/hardening.git
+cd hardening
 ```
+
+#### Server provisioning
+
+Create a SSH key.
