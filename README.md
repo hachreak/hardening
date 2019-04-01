@@ -7,4 +7,7 @@ install git to clone this repository:
 ```bash
 apt-get update
 apt-get install -y git
+mkdir ~/src
+cd ~/src
+git clone https://github.com/hachreak/hardening.git
 ```
