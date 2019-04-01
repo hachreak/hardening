@@ -47,7 +47,7 @@ before = paths-debian.conf
 # "ignoreip" can be an IP address, a CIDR mask or a DNS host. Fail2ban will not
 # ban a host which matches an address in this list. Several addresses can be
 # defined using space (and/or comma) separator.
-ignoreip = 127.0.0.1/8 172.18.0.1/8
+ignoreip = 127.0.0.1/8
 
 # External command that will take an tagged arguments to ignore, e.g. <ip>,
 # and return true if the IP is to be ignored. False otherwise.
@@ -185,7 +185,7 @@ action_cf_mwl = cloudflare[cfuser="%(cfemail)s", cftoken="%(cfapikey)s"]
                 %(mta)s-whois-lines[name=%(__name__)s, sender="%(sender)s", dest="%(destemail)s", logpath=%(logpath)s, chain="%(chain)s"]
 
 # Report block via blocklist.de fail2ban reporting service API
-# 
+#
 # See the IMPORTANT note in action.d/blocklist_de.conf for when to
 # use this action. Create a file jail.d/blocklist_de.local containing
 # [Init]
@@ -238,11 +238,11 @@ logpath = %(sshd_log)s
 backend = %(sshd_backend)s
 enabled = true
 
-[dropbear]
+#[dropbear]
 
-port     = ssh
-logpath  = %(dropbear_log)s
-backend  = %(dropbear_backend)s
+#port     = ssh
+#logpath  = %(dropbear_log)s
+#backend  = %(dropbear_backend)s
 
 
 [selinux-ssh]
@@ -255,161 +255,161 @@ logpath  = %(auditd_log)s
 # HTTP servers
 #
 
-[apache-auth]
+# [apache-auth]
 
-port     = http,https
-logpath  = %(apache_error_log)s
-
-
-[apache-badbots]
-# Ban hosts which agent identifies spammer robots crawling the web
-# for email addresses. The mail outputs are buffered.
-port     = http,https
-logpath  = %(apache_access_log)s
-bantime  = 172800
-maxretry = 1
+# port     = http,https
+# logpath  = %(apache_error_log)s
 
 
-[apache-noscript]
-
-port     = http,https
-logpath  = %(apache_error_log)s
-
-
-[apache-overflows]
-
-port     = http,https
-logpath  = %(apache_error_log)s
-maxretry = 2
+# [apache-badbots]
+# # Ban hosts which agent identifies spammer robots crawling the web
+# # for email addresses. The mail outputs are buffered.
+# port     = http,https
+# logpath  = %(apache_access_log)s
+# bantime  = 172800
+# maxretry = 1
 
 
-[apache-nohome]
+# [apache-noscript]
 
-port     = http,https
-logpath  = %(apache_error_log)s
-maxretry = 2
-
-
-[apache-botsearch]
-
-port     = http,https
-logpath  = %(apache_error_log)s
-maxretry = 2
+# port     = http,https
+# logpath  = %(apache_error_log)s
 
 
-[apache-fakegooglebot]
+# [apache-overflows]
 
-port     = http,https
-logpath  = %(apache_access_log)s
-maxretry = 1
-ignorecommand = %(ignorecommands_dir)s/apache-fakegooglebot <ip>
-
-
-[apache-modsecurity]
-
-port     = http,https
-logpath  = %(apache_error_log)s
-maxretry = 2
+# port     = http,https
+# logpath  = %(apache_error_log)s
+# maxretry = 2
 
 
-[apache-shellshock]
+# [apache-nohome]
 
-port    = http,https
-logpath = %(apache_error_log)s
-maxretry = 1
-
-
-[openhab-auth]
-
-filter = openhab
-action = iptables-allports[name=NoAuthFailures]
-logpath = /opt/openhab/logs/request.log
+# port     = http,https
+# logpath  = %(apache_error_log)s
+# maxretry = 2
 
 
-[nginx-http-auth]
+# [apache-botsearch]
 
-port    = http,https
-logpath = %(nginx_error_log)s
+# port     = http,https
+# logpath  = %(apache_error_log)s
+# maxretry = 2
 
-# To use 'nginx-limit-req' jail you should have `ngx_http_limit_req_module` 
+
+# [apache-fakegooglebot]
+
+# port     = http,https
+# logpath  = %(apache_access_log)s
+# maxretry = 1
+# ignorecommand = %(ignorecommands_dir)s/apache-fakegooglebot <ip>
+
+
+# [apache-modsecurity]
+
+# port     = http,https
+# logpath  = %(apache_error_log)s
+# maxretry = 2
+
+
+# [apache-shellshock]
+
+# port    = http,https
+# logpath = %(apache_error_log)s
+# maxretry = 1
+
+
+# [openhab-auth]
+
+# filter = openhab
+# action = iptables-allports[name=NoAuthFailures]
+# logpath = /opt/openhab/logs/request.log
+
+
+#[nginx-http-auth]
+
+#port    = http,https
+#logpath = %(nginx_error_log)s
+
+# To use 'nginx-limit-req' jail you should have `ngx_http_limit_req_module`
 # and define `limit_req` and `limit_req_zone` as described in nginx documentation
 # http://nginx.org/en/docs/http/ngx_http_limit_req_module.html
 # or for example see in 'config/filter.d/nginx-limit-req.conf'
-[nginx-limit-req]
-port    = http,https
-logpath = %(nginx_error_log)s
+#[nginx-limit-req]
+#port    = http,https
+#logpath = %(nginx_error_log)s
 
-[nginx-botsearch]
+#[nginx-botsearch]
 
-port     = http,https
-logpath  = %(nginx_error_log)s
-maxretry = 2
+#port     = http,https
+#logpath  = %(nginx_error_log)s
+#maxretry = 2
 
 
 # Ban attackers that try to use PHP's URL-fopen() functionality
 # through GET/POST variables. - Experimental, with more than a year
 # of usage in production environments.
 
-[php-url-fopen]
+# [php-url-fopen]
 
-port    = http,https
-logpath = %(nginx_access_log)s
-          %(apache_access_log)s
-
-
-[suhosin]
-
-port    = http,https
-logpath = %(suhosin_log)s
+# port    = http,https
+# logpath = %(nginx_access_log)s
+#           %(apache_access_log)s
 
 
-[lighttpd-auth]
-# Same as above for Apache's mod_auth
-# It catches wrong authentifications
-port    = http,https
-logpath = %(lighttpd_error_log)s
+# [suhosin]
+
+# port    = http,https
+# logpath = %(suhosin_log)s
+
+
+# [lighttpd-auth]
+# # Same as above for Apache's mod_auth
+# # It catches wrong authentifications
+# port    = http,https
+# logpath = %(lighttpd_error_log)s
 
 
 #
 # Webmail and groupware servers
 #
 
-[roundcube-auth]
+# [roundcube-auth]
 
-port     = http,https
-logpath  = %(roundcube_errors_log)s
-
-
-[openwebmail]
-
-port     = http,https
-logpath  = /var/log/openwebmail.log
+# port     = http,https
+# logpath  = %(roundcube_errors_log)s
 
 
-[horde]
+# [openwebmail]
 
-port     = http,https
-logpath  = /var/log/horde/horde.log
-
-
-[groupoffice]
-
-port     = http,https
-logpath  = /home/groupoffice/log/info.log
+# port     = http,https
+# logpath  = /var/log/openwebmail.log
 
 
-[sogo-auth]
-# Monitor SOGo groupware server
-# without proxy this would be:
-# port    = 20000
-port     = http,https
-logpath  = /var/log/sogo/sogo.log
+# [horde]
+
+# port     = http,https
+# logpath  = /var/log/horde/horde.log
 
 
-[tine20]
+# [groupoffice]
 
-logpath  = /var/log/tine20/tine20.log
-port     = http,https
+# port     = http,https
+# logpath  = /home/groupoffice/log/info.log
+
+
+# [sogo-auth]
+# # Monitor SOGo groupware server
+# # without proxy this would be:
+# # port    = 20000
+# port     = http,https
+# logpath  = /var/log/sogo/sogo.log
+
+
+# [tine20]
+
+# logpath  = /var/log/tine20/tine20.log
+# port     = http,https
 
 
 #
@@ -417,16 +417,16 @@ port     = http,https
 #
 #
 
-[drupal-auth]
+# [drupal-auth]
 
-port     = http,https
-logpath  = %(syslog_daemon)s
-backend  = %(syslog_backend)s
+# port     = http,https
+# logpath  = %(syslog_daemon)s
+# backend  = %(syslog_backend)s
 
-[guacamole]
+# [guacamole]
 
-port     = http,https
-logpath  = /var/log/tomcat*/catalina.out
+# port     = http,https
+# logpath  = /var/log/tomcat*/catalina.out
 
 [monit]
 #Ban clients brute-forcing the monit gui login
@@ -434,68 +434,68 @@ port = 2812
 logpath  = /var/log/monit
 
 
-[webmin-auth]
+# [webmin-auth]
 
-port    = 10000
-logpath = %(syslog_authpriv)s
-backend = %(syslog_backend)s
-
-
-[froxlor-auth]
-
-port    = http,https
-logpath  = %(syslog_authpriv)s
-backend  = %(syslog_backend)s
+# port    = 10000
+# logpath = %(syslog_authpriv)s
+# backend = %(syslog_backend)s
 
 
-#
-# HTTP Proxy servers
-#
-#
+# [froxlor-auth]
 
-[squid]
-
-port     =  80,443,3128,8080
-logpath = /var/log/squid/access.log
+# port    = http,https
+# logpath  = %(syslog_authpriv)s
+# backend  = %(syslog_backend)s
 
 
-[3proxy]
+# #
+# # HTTP Proxy servers
+# #
+# #
 
-port    = 3128
-logpath = /var/log/3proxy.log
+# [squid]
 
-
-#
-# FTP servers
-#
-
-
-[proftpd]
-
-port     = ftp,ftp-data,ftps,ftps-data
-logpath  = %(proftpd_log)s
-backend  = %(proftpd_backend)s
+# port     =  80,443,3128,8080
+# logpath = /var/log/squid/access.log
 
 
-[pure-ftpd]
+# [3proxy]
 
-port     = ftp,ftp-data,ftps,ftps-data
-logpath  = %(pureftpd_log)s
-backend  = %(pureftpd_backend)s
-
-
-[gssftpd]
-
-port     = ftp,ftp-data,ftps,ftps-data
-logpath  = %(syslog_daemon)s
-backend  = %(syslog_backend)s
+# port    = 3128
+# logpath = /var/log/3proxy.log
 
 
-[wuftpd]
+# #
+# # FTP servers
+# #
 
-port     = ftp,ftp-data,ftps,ftps-data
-logpath  = %(wuftpd_log)s
-backend  = %(wuftpd_backend)s
+
+# [proftpd]
+
+# port     = ftp,ftp-data,ftps,ftps-data
+# logpath  = %(proftpd_log)s
+# backend  = %(proftpd_backend)s
+
+
+# [pure-ftpd]
+
+# port     = ftp,ftp-data,ftps,ftps-data
+# logpath  = %(pureftpd_log)s
+# backend  = %(pureftpd_backend)s
+
+
+# [gssftpd]
+
+# port     = ftp,ftp-data,ftps,ftps-data
+# logpath  = %(syslog_daemon)s
+# backend  = %(syslog_backend)s
+
+
+# [wuftpd]
+
+# port     = ftp,ftp-data,ftps,ftps-data
+# logpath  = %(wuftpd_log)s
+# backend  = %(wuftpd_backend)s
 
 
 [vsftpd]
@@ -694,24 +694,24 @@ logpath = /var/log/nsd.log
 # Miscellaneous
 #
 
-[asterisk]
+# [asterisk]
 
-port     = 5060,5061
-action   = %(banaction)s[name=%(__name__)s-tcp, port="%(port)s", protocol="tcp", chain="%(chain)s", actname=%(banaction)s-tcp]
-           %(banaction)s[name=%(__name__)s-udp, port="%(port)s", protocol="udp", chain="%(chain)s", actname=%(banaction)s-udp]
-           %(mta)s-whois[name=%(__name__)s, dest="%(destemail)s"]
-logpath  = /var/log/asterisk/messages
-maxretry = 10
+# port     = 5060,5061
+# action   = %(banaction)s[name=%(__name__)s-tcp, port="%(port)s", protocol="tcp", chain="%(chain)s", actname=%(banaction)s-tcp]
+#            %(banaction)s[name=%(__name__)s-udp, port="%(port)s", protocol="udp", chain="%(chain)s", actname=%(banaction)s-udp]
+#            %(mta)s-whois[name=%(__name__)s, dest="%(destemail)s"]
+# logpath  = /var/log/asterisk/messages
+# maxretry = 10
 
 
-[freeswitch]
+# [freeswitch]
 
-port     = 5060,5061
-action   = %(banaction)s[name=%(__name__)s-tcp, port="%(port)s", protocol="tcp", chain="%(chain)s", actname=%(banaction)s-tcp]
-           %(banaction)s[name=%(__name__)s-udp, port="%(port)s", protocol="udp", chain="%(chain)s", actname=%(banaction)s-udp]
-           %(mta)s-whois[name=%(__name__)s, dest="%(destemail)s"]
-logpath  = /var/log/freeswitch.log
-maxretry = 10
+# port     = 5060,5061
+# action   = %(banaction)s[name=%(__name__)s-tcp, port="%(port)s", protocol="tcp", chain="%(chain)s", actname=%(banaction)s-tcp]
+#            %(banaction)s[name=%(__name__)s-udp, port="%(port)s", protocol="udp", chain="%(chain)s", actname=%(banaction)s-udp]
+#            %(mta)s-whois[name=%(__name__)s, dest="%(destemail)s"]
+# logpath  = /var/log/freeswitch.log
+# maxretry = 10
 
 
 # To log wrong MySQL access attempts add to /etc/my.cnf in [mysqld] or
