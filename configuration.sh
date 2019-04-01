@@ -23,3 +23,10 @@ echo "[Inpurc] Configure page-up/down"
 echo "" >> /etc/inputrc
 echo '"\e[5~": history-search-backward' >> /etc/inputrc
 echo '"\e[6~": history-search-forward' >> /etc/inputrc
+
+#####
+
+echo "[Munin] Configure"
+munin-node-configure
+ln -s /usr/share/munin/plugins/fail2ban /etc/munin/plugins/
+service munin-node restart
