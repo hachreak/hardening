@@ -8,3 +8,11 @@ echo "[SSH] client alive interval: 120"
 
 echo "[SSH] reload server"
 service ssh restart
+
+######
+
+echo "[Fail2ban] Copy jail configuration"
+cp config/fail2ban/jail.local /etc/fail2ban
+
+echo "[Fail2ban] reload server"
+service fail2ban restart
