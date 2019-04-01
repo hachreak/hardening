@@ -1,11 +1,12 @@
 #!/bin/sh
 
 DUSER=${DUSER:-hachreak}
+DID=${DID:-1000}
 
 echo "Create default group [$DUSER]"
-[ -z `groups | grep $DUSER` ] && groupadd -r $DUSER -g 1000
+[ -z `groups | grep $DUSER` ] && groupadd -r $DUSER -g $DID
 echo "Create default user [$DUSER]"
-[ -z `cat /etc/passwd| grep $DUSER` ] && useradd -d /home/$DUSER -m -u 1000 -r -g $DUSER $DUSER
+[ -z `cat /etc/passwd| grep $DUSER` ] && useradd -d /home/$DUSER -m -u $DID -r -g $DUSER $DUSER
 
 
 echo "SSH key generator.."
