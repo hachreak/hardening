@@ -10,7 +10,7 @@ echo "Create default user [$DUSER]"
 
 
 echo "SSH key generator.."
-! [ -f /home/$DUSER/.ssh/id_rsa ] && runuser $DUSER -c "ssh-keygen -t rsa -b 4096 -q -f /home/$DUSER/.ssh/id_rsa_test -N \"\""
+! [ -f /home/$DUSER/.ssh/id_rsa ] && runuser $DUSER -c "ssh-keygen -t rsa -b 4096 -q -f /home/$DUSER/.ssh/id_rsa -N \"\""
 
 
 echo "[Munin] Install web UI"
