@@ -5,7 +5,7 @@ DUSER=${DUSER:-hachreak}
 DID=${DID:-1000}
 
 echo "Create default group [$DUSER]"
-[ -z `groups | grep $DUSER` ] && groupadd -r $DUSER -g $DID
+[ -z `cat /etc/group | grep $DUSER` ] && groupadd -r $DUSER -g $DID
 echo "Create default user [$DUSER]"
 [ -z `cat /etc/passwd| grep $DUSER` ] && useradd -d /home/$DUSER -m -u $DID -r -g $DUSER $DUSER
 
@@ -13,7 +13,7 @@ echo "Create default user [$DUSER]"
 echo "[SSH] key generator.."
 ! [ -f /home/$DUSER/.ssh/id_rsa ] && runuser $DUSER -c "ssh-keygen -t rsa -b 4096 -q -f /home/$DUSER/.ssh/id_rsa -N \"\""
 echo "[SSH] copy public key"
-[ -z `cat /home/$DUSER/.ssh/authorized_keys | awk '{print $3}' | grep $SUSER` ] && cat ~/.ssh/authorized_keys >> /home/$DUSER/.ssh/authorized_keys
+[ -z `cat /home/$DUSER/.ssh/authorized_keys 2> /dev/null | awk '{print $3}' | grep $SUSER` ] && cat ~/.ssh/authorized_keys >> /home/$DUSER/.ssh/authorized_keys
 
 
 echo "[Munin] Install web UI"
