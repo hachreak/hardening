@@ -16,5 +16,5 @@ echo "SSH key generator.."
 echo "[Munin] Install web UI"
 ! [ -d /home/$DUSER/bin ] && mkdir /home/$DUSER/bin && \
   echo "PATH=\$PATH:/home/$DUSER/bin" >> ~/.bashrc
-cp config/munin/auth-http-server.py config/munin/munin_web_server.sh ~/bin/
+cp config/munin/auth-http-server.py config/munin/munin_web_server.sh /home/$DUSER/bin/
 chown $DUSER:$DUSER /home/$DUSER/bin -R
