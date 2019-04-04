@@ -1,5 +1,6 @@
 #!/bin/sh
 
+SUSER=${SUSER:-hachreak@}
 DUSER=${DUSER:-hachreak}
 DID=${DID:-1000}
 
@@ -9,8 +10,10 @@ echo "Create default user [$DUSER]"
 [ -z `cat /etc/passwd| grep $DUSER` ] && useradd -d /home/$DUSER -m -u $DID -r -g $DUSER $DUSER
 
 
-echo "SSH key generator.."
+echo "[SSH] key generator.."
 ! [ -f /home/$DUSER/.ssh/id_rsa ] && runuser $DUSER -c "ssh-keygen -t rsa -b 4096 -q -f /home/$DUSER/.ssh/id_rsa -N \"\""
+echo "[SSH] copy public key"
+[ -z `cat /home/$DUSER/.ssh/authorized_keys | awk '{print $3}' | grep $SUSER` ] && cat ~/.ssh/authorized_keys >> /home/$DUSER/.ssh/authorized_keys
 
 
 echo "[Munin] Install web UI"
