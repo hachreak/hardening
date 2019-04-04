@@ -8,6 +8,8 @@ echo "Create default group [$DUSER]"
 [ -z `cat /etc/group | grep $DUSER` ] && groupadd -r $DUSER -g $DID
 echo "Create default user [$DUSER]"
 [ -z `cat /etc/passwd| grep $DUSER` ] && useradd -s /bin/bash -d /home/$DUSER -m -u $DID -r -g $DUSER $DUSER
+echo "Set $DUSER as sudo user"
+[ -z `cat /etc/group | grep sudo | grep $DUSER` ] && usermod -aG sudo $DUSER
 
 
 echo "[SSH] key generator.."
