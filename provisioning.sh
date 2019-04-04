@@ -11,3 +11,10 @@ echo "Create default user [$DUSER]"
 
 echo "SSH key generator.."
 ! [ -f /home/$DUSER/.ssh/id_rsa ] && runuser $DUSER -c "ssh-keygen -t rsa -b 4096 -q -f /home/$DUSER/.ssh/id_rsa_test -N \"\""
+
+
+echo "[Munin] Install web UI"
+! [ -d /home/$DUSER/bin ] && mkdir /home/$DUSER/bin && \
+  echo "PATH=\$PATH:/home/$DUSER/bin" >> ~/.bashrc
+cp config/munin/auth-http-server.py config/munin/munin_web_server.sh ~/bin/
+chown $DUSER:$DUSER /home/$DUSER/bin -R
